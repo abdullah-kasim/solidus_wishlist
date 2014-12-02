@@ -1,8 +1,6 @@
 RSpec.describe Spree::User, type: :model do
 
-describe Spree::User do
-  let(:user) { create(:user_with_wishlist) }
-  let(:attributes) { attributes_for(:user_with_wishlist) }
+  it { is_expected.to have_many(:wishlists).class_name(Spree::Wishlist) }
 
   it 'has a valid factory' do
     expect(build(:user_with_wishlist)).to be_valid
