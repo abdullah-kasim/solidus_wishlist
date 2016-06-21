@@ -33,4 +33,4 @@ RSpec.configure do |config|
   config.include Requests::JsonHelpers, type: :request
 end
 
-Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |file| require file }
+Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each {|file| require file }
