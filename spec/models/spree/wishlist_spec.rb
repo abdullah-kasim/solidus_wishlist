@@ -86,6 +86,4 @@ RSpec.describe Spree::Wishlist, type: :model do
         wished_product.wishlist.destroy
       }.to change(Spree::WishedProduct, :count).by(-1)
     end
-
-  end
 end

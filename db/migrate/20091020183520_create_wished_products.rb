@@ -1,11 +1,11 @@
-class CreateWishedProducts < ActiveRecord::Migration
+class CreateWishedProducts < ActiveRecord::Migration[4.2]
   def self.up
     create_table :wished_products do |t|
       t.references :variant
       t.references :wishlist
       t.text :remark
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

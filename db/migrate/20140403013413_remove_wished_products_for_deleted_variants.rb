@@ -1,7 +1,7 @@
-class RemoveWishedProductsForDeletedVariants < ActiveRecord::Migration
+class RemoveWishedProductsForDeletedVariants < ActiveRecord::Migration[4.2]
   def up
     Spree::WishedProduct.includes(:variant).find_each do |wished_product|
-      wished_product.destroy if !wished_product.variant
+      wished_product.destroy unless wished_product.variant
     end
   end
 
