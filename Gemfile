@@ -7,8 +7,10 @@ gem 'solidus_auth_devise'
 group :development, :test do
   # Call `binding.pry` anywhere in the code to stop execution and get a debugger console.
   gem 'byebug'
+  gem 'capybara-screenshot'
   gem 'pry-byebug'
   gem 'rails-controller-testing'
+  gem 'rb-readline', require: false
   gem 'rubocop'
 end
 

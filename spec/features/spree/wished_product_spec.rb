@@ -1,10 +1,10 @@
-RSpec.feature 'Wished Product', :js do
+RSpec.feature 'Wished Product', :js, type: :feature do
   given(:user) { create(:user) }
 
   context 'add' do
     given(:product) { create(:product) }
 
-    background do
+    before(:each) do
       sign_in_as! user
     end
 
@@ -92,6 +92,6 @@ RSpec.feature 'Wished Product', :js do
 
   def add_to_wishlist(product)
     visit spree.product_path(product)
-    click_button 'Add to wishlist'
+    click_button :'btn-success'
   end
 end

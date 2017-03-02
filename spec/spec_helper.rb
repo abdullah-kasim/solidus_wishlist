@@ -25,6 +25,7 @@ RSpec.configure do |config|
   config.fail_fast = false
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
+  config.example_status_persistence_file_path = "tmp/spec/examples.txt"
 
   config.expect_with :rspec do |expectations|
     expectations.syntax = :expect

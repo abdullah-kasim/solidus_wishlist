@@ -1,5 +1,6 @@
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 
 module Spree
