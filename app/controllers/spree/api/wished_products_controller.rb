@@ -15,7 +15,11 @@ module Spree
           current_api_user
         end
 
-        @wishlist = current_wishlist_user.wishlists.find(@wished_product[:wishlist_id]) || current_wishlist_user.wishlist
+        @wishlist = if @wished_product[:wishlist_id] 
+          current_wishlist_user.wishlists.find(@wished_product[:wishlist_id]) 
+        else
+          current_wishlist_user.wishlist
+        end
 
         if @wishlist.include? params[:wished_product][:variant_id]
           @wished_product = @wishlist.wished_products.detect {|wp| wp.variant_id == params[:wished_product][:variant_id].to_i }
