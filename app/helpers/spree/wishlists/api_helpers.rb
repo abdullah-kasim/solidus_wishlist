@@ -13,7 +13,7 @@ module Spree
       ]
 
       @@wished_product_attributes = [
-        :id, :variant_id, :wishlist_id, :remark
+         :id, :variant_id, :name, :wishlist_id, :remark, :image_url, :price
       ]
     end
   end

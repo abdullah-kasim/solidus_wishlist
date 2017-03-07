@@ -4,13 +4,12 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
     let(:product)    { FactoryGirl.create(:variant) }
     it 'allows add wished products to the default wishlist' do
       user.generate_spree_api_key!
-      post "/en/api/wished_products", params: {
+      post "/api/wished_products?token=#{user.spree_api_key}", params: {
         wished_product: {
           variant_id: product.id,
         },
         user_id: user.id,
-      },
-      headers: headers(user.spree_api_key)
+      }
       expect(user.wishlist.wished_products.count).to eq 1
     end
   end
@@ -89,6 +88,45 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
           },
         }
         expect(response).not_to be_success
+      end
+    end
+
+    context '#index' do
+      let(:new_product) { FactoryGirl.create(:variant) }
+
+      before do
+        post "/api/wished_products?token=#{user.spree_api_key}", params: {
+          wished_product: {
+            variant_id: product.id,
+            wishlist_id: user.wishlist.id,
+          },
+        }
+        get "/api/wishlists?token=#{user.spree_api_key}"
+        @access_hash = json['wishlists'][0]['access_hash']
+      end
+
+      it 'must list products on default wishlist' do
+        get "/api/wishlists/#{@access_hash}?token=#{user.spree_api_key}"
+        expect(response).to be_success
+        expect(json['wished_products'][0]['variant_id']).to eq(product.id)
+      end
+
+      it 'must have the image url for the product variant' do
+        get "/api/wishlists/#{@access_hash}?token=#{user.spree_api_key}"
+        expect(response).to be_success
+        expect(json['wished_products'][0]['image_url']).to eq("noimage/small.png")
+      end
+
+      it 'must have the name for the product variant' do
+        get "/api/wishlists/#{@access_hash}?token=#{user.spree_api_key}"
+        expect(response).to be_success
+        expect(json['wished_products'][0]['name']).to eq(product.name)
+      end
+
+      it 'must have the price for the product variant' do
+        get "/api/wishlists/#{@access_hash}?token=#{user.spree_api_key}"
+        expect(response).to be_success
+        expect(json['wished_products'][0]['price']).to eq(product.price.to_s)
       end
     end
 

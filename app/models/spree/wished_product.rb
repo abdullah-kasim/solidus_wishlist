@@ -12,6 +12,14 @@ class Spree::WishedProduct < ActiveRecord::Base
     Spree::Money.new(total)
   end
 
+  def name
+    variant.product.name
+  end
+
+  def price
+    variant.price
+  end
+
   def image_url
     variant.product.display_image.attachment.url(:small)
   end
