@@ -97,6 +97,19 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
     end
   end
 
+  context '#default' do
+    it 'retrieves the default wishlist of the current user' do
+      get "/api/wishlist?token=#{user.spree_api_key}"
+      expect(json['is_default']).to eq true
+      expect(json['user_id']).to eq wishlist.user_id
+    end
+
+    it 'assigns the default wishlist as @wishlist' do
+      get "/api/wishlist?token=#{user.spree_api_key}"
+      expect(assigns(:wishlist)).to eq user.wishlist
+    end
+  end
+
   context '#create' do
     it 'can create a new wishlist' do
       post "/api/wishlists?token=#{user.spree_api_key}", params: {

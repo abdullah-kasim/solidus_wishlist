@@ -41,6 +41,11 @@ module Spree
         end
       end
 
+      def default
+        @wishlist = current_wishlist_user.wishlist
+        respond_with(@wishlist, status: 200, default_template: :show)
+      end
+
       def destroy
         authorize! :destroy, @wishlist
         @wishlist.destroy
