@@ -1,6 +1,6 @@
 class Spree::WishedProduct < ActiveRecord::Base
-  belongs_to :variant
-  belongs_to :wishlist
+  belongs_to :variant, touch: true
+  belongs_to :wishlist, touch: true
 
   validate :variant_exists, :wishlist_exists
 
